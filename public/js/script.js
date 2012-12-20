@@ -16,6 +16,40 @@ var line = d3.svg.line()
     return y(d);
   });
 
+//this is a demo of how to do non-block area plots
+var spend = d3.svg.area()
+  .interpolate("linear")
+  .x(function(d,i){
+    return x(i);
+  })
+  .y1(function(d){
+    return y(x);
+  })
+  .y0(function(d){
+    return this.height; //sweet, access to this
+  });
+
+//now we overwrite the demo
+var spend = d3.svg.area()
+  .interpolate("linear")
+  .x(function(d,i){
+    return x(i);
+  })
+  .y1(function(d){
+    return y(15);
+  })
+  .y0(function(d){
+    return this.height;
+  });
+
+//setting up the tolltip
+
+var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolite")
+    .style("z-index", "10")
+    .style("visibility", "hidden")
+    .text("hello");
 
 var graph = d3.select('#viz')
     .append("svg:svg")
@@ -32,5 +66,14 @@ var yAxisLeft = d3.svg.axis().scale(y).ticks(4).orient("left");
 
 graph.append("svg:g").attr("class", "y axis").attr("transform", "translate(-25, 0)").call(yAxisLeft);
 
-graph.append("svg:path").attr("d", line(data));
+//ok, apparently there's nothing called svg:area
+graph.append("svg:path").attr("class", "spend").attr("d", spend(data));
+//have this guy be last
+graph.append("svg:path").attr("class", "line").attr("d", line(data));
+
+//now for the tooltip
+d3.select("#viz").append("svg:circle").attr("stroke", "black").attr("fill", "aliceblue").attr("r", 50).attr("cx", 52).attr("cy", 52)
+  .on("mouseover", function(){return console.log("visibility", "visible");})
+  .on("mousemove", function(){return tooltip.style("top", (event.pageY) + "px").style("left", (event.pageX) + "px");})
+  .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 

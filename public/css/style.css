@@ -4,6 +4,11 @@ path {
     fill: none;
   }
 
+.spend{
+  fill: lightsalmon;
+  stroke-width: 0;
+}
+
 .axis {
   shape-rendering: crispEdges;
 }
