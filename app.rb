@@ -3,7 +3,7 @@ require 'sinatra'
 require 'mongo'
 require 'json'
 
-DB = Mongo::Connection.new.db("case", :pool_size => 5, :timeout => 5)
+#DB = Mongo::Connection.new.db("case", :pool_size => 5, :timeout => 5)
 
 get '/' do
   haml :index, :attr_wrapper => '"', :locals => {:title => 'Cash Traxxor'}
@@ -13,7 +13,7 @@ before '/api/*' do
   content_type :json
 end
 
-
+=begin
 get '/api/:thing' do
   DB.collection(params[:thing]).find.to_a.map{|t| from_bson_id(t)}.to_json
 end
@@ -37,3 +37,4 @@ end
 
 def to_bson_id(id) BSON::ObjectId.from_string(id) end
 def from_bson_id(obj) obj.merge({'_id' => obj['_id'].to_s}) end
+=end
