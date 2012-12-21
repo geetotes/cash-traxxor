@@ -14,6 +14,7 @@
 
   / CSS concatenated and minified via ant build script
   %link{'rel' => 'stylesheet', 'href' => 'css/silk-icons.css'}/
+  %link{'rel' => 'stylesheet', 'href' => 'css/nv.d3.css'}/
   %link{'rel' => 'stylesheet', 'href' => 'css/style.css'}/
   / end CSS
 
@@ -33,6 +34,14 @@
   / scripts concatenated and minified via ant build script
   / Add in d3.js and various dependencies
   %script{'src' => '/js/libs/d3.v2.js'}
+  %script{'src' => '/js/libs/nv.d3.js'}
+  %script{'src' => '/js/libs/nvd3/utils.js'}
+  %script{'src' => '/js/libs/nvd3/tooltip.js'}
+  %script{'src' => '/js/libs/nvd3/models/legend.js'}
+  %script{'src' => '/js/libs/nvd3/models/axis.js'}
+  %script{'src' => '/js/libs/nvd3/models/scatter.js'}
+  %script{'src' => '/js/libs/nvd3/models/line.js'}
+  %script{'src' => '/js/libs/nvd3/models/lineChart.js'}
   %script{'defer' => true, 'src' => '/js/plugins.js'}
   %script{'defer' => true, 'src' => '/js/script.js'}
   / end scripts

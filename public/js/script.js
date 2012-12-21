@@ -1,4 +1,44 @@
+nv.addGraph(function(){
+  var chart = nv.models.lineChart();
+
+  chart.x(function(d,i){return i});
+
+  chart.xAxis
+    .axisLabel('Time')
+    .tickFormat(d3.format('.01f'));
+
+  chart.yAxis
+    .axisLabel('Money')
+    .tickFormat(d3.format('.02f'));
+
+  d3.select("#viz svg")
+    .datum(lostChart())
+    .transition().duration(500)
+    .call(chart);
+
+  nv.utils.windowResize(function() { d3.select("#viz svg").call(chart)});
+
+  return chart;
+
+});
+
+
+function lostChart() {
+  var lost = [4, 8, 15, 16, 23, 42]; //LOST
+  var data = [];
+  for(var i = 0; i < lost.length; i++)
+    data.push({ x: i, y: lost[i]});
+  return [{ values: data, key: "cash", color: "#2ca02c"}];
+
+
+}
+
+
+
+/*
+ * Commenting all this out, trying out nvd3
 var m = [80, 80, 80, 80]; //margins
+
 var width = 1000 - m[1] - m[3];
 var height = 400 - m[0] - m[2];
 
@@ -69,11 +109,6 @@ graph.append("svg:g").attr("class", "y axis").attr("transform", "translate(-25, 
 //ok, apparently there's nothing called svg:area
 graph.append("svg:path").attr("class", "spend").attr("d", spend(data));
 //have this guy be last
-graph.append("svg:path").attr("class", "line").attr("d", line(data));
-
-//now for the tooltip
-d3.select("#viz").append("svg:circle").attr("stroke", "black").attr("fill", "aliceblue").attr("r", 50).attr("cx", 52).attr("cy", 52)
-  .on("mouseover", function(){return console.log("visibility", "visible");})
-  .on("mousemove", function(){return tooltip.style("top", (event.pageY) + "px").style("left", (event.pageX) + "px");})
-  .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+graph.append("svg:path").attr("class", "line").attr("d", line(data)).call(d3.helper.tooltip(function(d, i, x){return "value: " + i;}));
+*/
 
