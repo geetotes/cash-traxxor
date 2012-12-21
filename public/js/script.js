@@ -25,10 +25,14 @@ nv.addGraph(function(){
 
 function lostChart() {
   var lost = [4, 8, 15, 16, 23, 42]; //LOST
-  var data = [];
-  for(var i = 0; i < lost.length; i++)
-    data.push({ x: i, y: lost[i]});
-  return [{ values: data, key: "cash", color: "#2ca02c"}];
+  var cash = [],
+      spend = [];
+  for(var i = 0; i < lost.length; i++){
+    spend.push({ x: i, y: 30});
+    cash.push({ x: i, y: lost[i]});
+  }
+  return [{ values: cash, key: "cash", color: "#2ca02c"},
+          { values: spend, area: true, key: "spending", color:"lightsalmon"}];
 
 
 }
