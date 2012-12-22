@@ -1,15 +1,21 @@
-$height:"16px"
-$width:"16px"
+$height:0px;
 
-.silk-icon 
-  background-image:url('silk-icons.png')
-  background-repeat:no-repeat
-  height: $height
-  width: $height
-  overflow:hidden
-  margin:
-    top: "0"
-    bottom: "0"
-    left: "2px"
-    right: "2px"
-  display:-moz-inline-box
+.silk-icon {
+  background-image:url('silk-icons.png');
+  background-repeat:no-repeat;
+  height: "16px";
+  width: "16px";
+  overflow:hidden;
+  margin: "0 2px";
+  display:-moz-inline-box;
+}
+
+@function decramentHeight($height){
+  $height: ($height - 16);
+  @return $height;
+}
+
+
+.silk-icon-accept{background-position:0 0;}
+.silk-icon-add{background-position:0 decramentHeight($height);}
+.silk-icon-add{background-position:0 $height;}

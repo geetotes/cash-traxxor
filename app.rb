@@ -15,11 +15,13 @@ configure do
 
   set :haml, { :format => :html5 }
   set :sass, Compass.sass_engine_options
+  set :scss, Compass.sass_engine_options
 end
 
 get '/stylesheets/:name.css' do
   content_type 'text/css', :charset => 'utf8'
-  sass (:"stylesheets/#{params[:name]}")
+  #sass (:"stylesheets/#{params[:name]}")
+  scss (:"stylesheets/#{params[:name]}")
 end
 
 
