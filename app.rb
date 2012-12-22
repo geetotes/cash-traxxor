@@ -12,11 +12,17 @@ configure do
     config.sass_dir = File.join "views", "stylesheets"
   end
 
-
   set :haml, { :format => :html5 }
   set :sass, Compass.sass_engine_options
   set :scss, Compass.sass_engine_options
 end
+
+helpers do
+  def partial(page, options={})
+    haml page, options.merge!(:layout => false)
+  end
+end
+
 
 get '/stylesheets/:name.css' do
   content_type 'text/css', :charset => 'utf8'

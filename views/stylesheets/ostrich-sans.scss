@@ -1,0 +1,37 @@
+@mixin OSCondensedLight {
+  span, a, p, h1, h2, h3, h4, h5, h6 {
+    font:'OstrichSansCondensedLight', Arial, sans-serif;
+  }
+}
+
+@mixin OSMedium {
+  span, a, p, h1, h2, h3, h4, h5, h6 {
+    font:'OstrichSansMedium', Arial, sans-serif;
+  }
+}
+@mixin OSBold($size) {
+  span, a, p, h1, h2, h3, h4, h5, h6 {
+    font: $size 'OstrichSansBold', Arial, sans-serif;
+    line-height: ($size + 8)
+  }
+}
+@mixin OSBlack {
+  span, a, p, h1, h2, h3, h4, h5, h6 {
+    font:'OstrichSansBlack', Arial, sans-serif;
+  }
+}
+@mixin OSBlack {
+  span, a, p, h1, h2, h3, h4, h5, h6 {
+    font:'OstrichSansBlack', Arial, sans-serif;
+  }
+}
+@mixin OSRoundedMedium {
+  span, a, p, h1, h2, h3, h4, h5, h6 {
+    font:'OstrichSansRoundedMedium', Arial, sans-serif;
+  }
+}
+@mixin OSCondensedLight {
+  span, a, p, h1, h2, h3, h4, h5, h6 {
+    font:'OstrichSansCondensedLight', Arial, sans-serif;
+  }
+}
