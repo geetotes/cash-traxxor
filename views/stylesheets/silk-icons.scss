@@ -1,0 +1,15 @@
+$height:"16px"
+$width:"16px"
+
+.silk-icon 
+  background-image:url('silk-icons.png')
+  background-repeat:no-repeat
+  height: $height
+  width: $height
+  overflow:hidden
+  margin:
+    top: "0"
+    bottom: "0"
+    left: "2px"
+    right: "2px"
+  display:-moz-inline-box
