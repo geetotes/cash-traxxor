@@ -1,27 +1,8 @@
 $panel-background: #000;
 $light-blue:#CCCCFF;
 
-.panel {
-  background-color: $panel-background;
-  border-radius: 40px 40px 40px 40px;
-  box-shadow: 10px 10px 5px #888888;
-  height: auto;
-  margin: 25px 10px;
-  padding: 40px 30px 30px 40px;
-  width: 40%;
-  color: $light-blue;
-  @include OSBold(70px);
-  display:none;
-}
 
-.panel h1{
-  text-align:center;
-}
-
-#income{
-  float:left
-}
-
-#expenses{
-  float: right
-}
+/* TODO: research mixin for left 
+.full-width .left{
+  float:left;
+}*/
