@@ -11,6 +11,7 @@ $light-blue:#CCCCFF;
   width: 40%;
   color: $light-blue;
   @include OSBold(70px);
+  display:none;
 }
 
 .panel h1{
