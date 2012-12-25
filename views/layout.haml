@@ -34,6 +34,8 @@
     window.jQuery || document.write('<script src="js/libs/jquery-1.7.2.min.js"><\/script>')
 
   / scripts concatenated and minified via ant build script
+  %script{'src' => '/js/libs/underscore.js'}
+  %script{'src' => '/js/libs/backbone.js'}
   / Add in d3.js and various dependencies
   %script{'src' => '/js/libs/d3.v2.js'}
   %script{'src' => '/js/libs/nv.d3.js'}
@@ -45,7 +47,8 @@
   %script{'src' => '/js/libs/nvd3/models/line.js'}
   %script{'src' => '/js/libs/nvd3/models/lineChart.js'}
   %script{'defer' => true, 'src' => '/js/plugins.js'}
-  %script{'defer' => true, 'src' => '/js/script.js'}
+  / %script{'defer' => true, 'src' => '/js/script.js'}
+  %script{'defer' => true, 'src' => '/js/app.js'}
   / end scripts
 
   / Change UA-XXXXX-X to be your site's ID

@@ -39,6 +39,7 @@ function lostChart() {
 
 
 
+
 /*
  * Commenting all this out, trying out nvd3
 var m = [80, 80, 80, 80]; //margins
