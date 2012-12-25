@@ -7,8 +7,8 @@ window.AppView = Backbone.View.extend({
     "click #income": "setIncome",
     "click #expenses": "setExpenses"
   }, //we need is events right now
-  initalize: function(){
-    var graph = new GraphView();
+  initialize: function(){
+    var graph = new GraphView;
     graph.render();
   },
   setIncome: function(){
@@ -21,9 +21,7 @@ window.AppView = Backbone.View.extend({
 
 window.GraphView = Backbone.View.extend({
   el: $("#viz"),
-  initalize: this.render,
-  render: nv.addGraph(function(){
-  function lostChart() {
+  lostChart: function() {
         var lost = [4, 8, 15, 16, 23, 42]; //LOST
           var cash = [],
         spend = [];
@@ -35,8 +33,10 @@ window.GraphView = Backbone.View.extend({
             { values: spend, area: true, key: "spending", color:"lightsalmon"}];
 
 
-    }
-      var chart = nv.models.lineChart();
+    },
+  chart: function(){
+      var chart = nv.models.lineChart(),
+          data = this.lostChart();
 
       chart.x(function(d,i){return i});
 
@@ -49,15 +49,18 @@ window.GraphView = Backbone.View.extend({
         .tickFormat(d3.format('.02f'));
 
       d3.select("#viz svg")
-        .datum(lostChart())
+        .datum(data)
         .transition().duration(500)
         .call(chart);
 
       nv.utils.windowResize(function() { d3.select("#viz svg").call(chart)});
 
       return chart;
+  },
 
-    })
+  render: function(){
+    nv.addGraph(this.chart());
+  }
 });
 
 window.app = new AppView;
