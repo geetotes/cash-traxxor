@@ -6,7 +6,7 @@ $(function(){
   events: {
     "click #income": "setIncome",
   "click #expenses": "setExpenses"
-  }, //we need is events right now
+  }, //all we need is events right now
   initialize: function(){
     var graph = new GraphView;
     graph.render();
@@ -28,8 +28,10 @@ $(function(){
                 spend = [],
                 i;
       for(i = 0; i < lost.length; i++) {
-        spend.push({ x: i, y: 30});
-        cash.push({ x: i, y: lost[i]});
+        spendDate = (new Date).getTime();
+        spend.push({ x: spendDate, y: 30});
+        var cashDate = new Date(2012,12,i).getTime();
+        cash.push({ x: cashDate, y: lost[i]});
       }
       return [{ values: cash, key: "cash", color: "#2ca02c"},
               { values: spend, area: true, key: "spending", color:"lightsalmon"}];
@@ -46,7 +48,8 @@ $(function(){
   chart.xAxis
     .axisLabel('Time')
     .tickFormat(function(d){
-      return d3.time.format('%x')(new Date(d))
+      var dx = data[0].values[d] && data[0].values[d].x || 0;
+      return d3.time.format('%x')(new Date(dx))
     });
 
 
