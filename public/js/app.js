@@ -20,7 +20,6 @@ $(function(){
   });
 
 
-
   window.CashModel = Backbone.Model.extend({
     defaults: {
       "income": "true",
@@ -36,13 +35,21 @@ $(function(){
           y,
           generatedData = [];
 
-      var days = new Date(now.getYear(), now.getMonth()).getDate();
+      var currMonth = now.getMonth() + 1; //months 0 indexed
+      var days = new Date(now.getFullYear(), currMonth, 0).getDate();
       var daysIncrement = Math.floor(days/this.frequency);
-
+      
       for(var i = 1; i <= this.frequency; i++)
       {
-        generatedData.push({x: new Date(now.getYear(), now.getMonth(), i * daysIncrement).getTime(), y: (i * this.amount)});
-        //TODO: debug here
+        //check to see if this is an expense or income
+        if(this.income)
+          generatedData.push({x: new Date(now.getFullYear(), now.getMonth(), i * daysIncrement).getTime(), y: (i * this.amount)});
+        else
+          generatedData.push({x: new Date(now.getFullYear(), now.getMonth(), i * daysIncrement).getTime(), y: (this.amount)});
+        console.log('x: '+new Date(now.getFullYear(), now.getMonth(), i * daysIncrement).getTime());
+        console.log('i: '+i*daysIncrement);
+        console.log('days increment'+daysIncrement);
+        console.log('year: '+now.getFullYear()+'month: ',now.getMonth());
 
       }
       //based on this.amount, this.income, and this.frequency, this will generate the x/y data
@@ -62,7 +69,8 @@ $(function(){
               cash = [],
               spend = [],
               i,
-              cashModel = new CashModel;
+              cashModel = new CashModel,
+              expenseModel = new CashModel;
     for(i = 0; i < lost.length; i++) {
       spendDate = (new Date).getTime();
       spend.push({ x: spendDate, y: 30});
@@ -74,8 +82,12 @@ $(function(){
     cashModel.income = true;
     cashModel.frequency = "4";
 
+    expenseModel.amount = "1000";
+    expenseModel.income = false;
+    expenseModel.frequency = "4";//expense frequency has to match income frequency
+
     return [{ values: cashModel.generateData(), key: "cash", color: "#2ca02c"},
-            { values: spend, area: true, key: "spending", color:"lightsalmon"}];
+            { values: expenseModel.generateData(), area: true, key: "spending", color:"lightsalmon"}];
 
     },
     chart: function(){
