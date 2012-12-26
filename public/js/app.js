@@ -82,15 +82,18 @@ $(function(){
 
 
     //crunch numbers for proper amount here:
-    var totalAmount = Math.floor(($('#income').val() * $('#frequency').val())/6);
+    var totalAmount = $('#income').val() * $('#frequency').val();
+    var avgAmt = Math.floor(($('#income').val() * $('#frequency').val())/6);
 
-  cashModel.amount = totalAmount;
+  cashModel.amount = avgAmt;
   cashModel.income = true;
   cashModel.frequency = "6";//frequency needs to be at least 6 in order to avoid NaN dates in timeline
 
   expenseModel.amount = $('#expenses').val();
   expenseModel.income = false;
   expenseModel.frequency = "6";//expense frequency has to match income frequency
+
+  $('#savings').text(totalAmount - $('#expenses').val());
 
   return [{ values: cashModel.generateData(), key: "cash", color: "#2ca02c"},
          { values: expenseModel.generateData(), area: true, key: "spending", color:"lightsalmon"}];
