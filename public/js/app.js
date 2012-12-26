@@ -2,17 +2,19 @@
 //
 $(function(){
   window.AppView = Backbone.View.extend({
-    el: $("app"),
+    el: $("#app"),
   events: {
-    "click #income": "setIncome",
-  "click #expenses": "setExpenses"
+    "blur .trigger": "redraw",
+    "click .trigger": "redraw"
   }, //all we need is events right now
   initialize: function(){
     var graph = new GraphView;
     graph.render();
   },
-  setIncome: function(){
-    //???
+  redraw: function(){
+    var graph = new GraphView;
+    graph.render();
+
   },
   setExpenses: function(){
     //????
@@ -23,37 +25,37 @@ $(function(){
   window.CashModel = Backbone.Model.extend({
     defaults: {
       "income": "true",
-      "amount": "100",
-      "frequency": "4"//should be a number indicating how often it happens in a month
+    "amount": "100",
+    "frequency": "6"//should be a number indicating how often it happens in a month
     },
     calculateFrequency: function(){
       //do something
     },
     generateData: function(){
       var now = new Date(),
-          x,
-          y,
-          generatedData = [];
+    x,
+    y,
+    generatedData = [];
 
-      var currMonth = now.getMonth() + 1; //months 0 indexed
-      var days = new Date(now.getFullYear(), currMonth, 0).getDate();
-      var daysIncrement = Math.floor(days/this.frequency);
-      
-      for(var i = 1; i <= this.frequency; i++)
-      {
-        //check to see if this is an expense or income
-        if(this.income)
-          generatedData.push({x: new Date(now.getFullYear(), now.getMonth(), i * daysIncrement).getTime(), y: (i * this.amount)});
-        else
-          generatedData.push({x: new Date(now.getFullYear(), now.getMonth(), i * daysIncrement).getTime(), y: (this.amount)});
-        console.log('x: '+new Date(now.getFullYear(), now.getMonth(), i * daysIncrement).getTime());
-        console.log('i: '+i*daysIncrement);
-        console.log('days increment'+daysIncrement);
-        console.log('year: '+now.getFullYear()+'month: ',now.getMonth());
+  var currMonth = now.getMonth() + 1; //months 0 indexed
+  var days = new Date(now.getFullYear(), currMonth, 0).getDate();
+  var daysIncrement = Math.floor(days/this.frequency);
 
-      }
-      //based on this.amount, this.income, and this.frequency, this will generate the x/y data
-      return generatedData;
+  for(var i = 1; i <= this.frequency; i++)
+  {
+    //check to see if this is an expense or income
+    if(this.income)
+      generatedData.push({x: new Date(now.getFullYear(), now.getMonth(), i * daysIncrement).getTime(), y: (i * this.amount)});
+    else
+      generatedData.push({x: new Date(now.getFullYear(), now.getMonth(), i * daysIncrement).getTime(), y: (this.amount)});
+    console.log('x: '+new Date(now.getFullYear(), now.getMonth(), i * daysIncrement).getTime());
+    console.log('i: '+i*daysIncrement);
+    console.log('days increment'+daysIncrement);
+    console.log('year: '+now.getFullYear()+'month: ',now.getMonth());
+
+  }
+  //based on this.amount, this.income, and this.frequency, this will generate the x/y data
+  return generatedData;
     }
   });
 
@@ -62,15 +64,15 @@ $(function(){
   });
 
   window.GraphView = Backbone.View.extend({
-      el: $("#viz"),
+    el: $("#viz"),
 
-      lostChart: function(){
-          var lost = [4, 8, 15, 16, 23, 42], //LOST
-              cash = [],
-              spend = [],
-              i,
-              cashModel = new CashModel,
-              expenseModel = new CashModel;
+    lostChart: function(){
+      var lost = [4, 8, 15, 16, 23, 42], //LOST
+    cash = [],
+    spend = [],
+    i,
+    cashModel = new CashModel,
+    expenseModel = new CashModel;
     for(i = 0; i < lost.length; i++) {
       spendDate = (new Date).getTime();
       spend.push({ x: spendDate, y: 30});
@@ -78,23 +80,25 @@ $(function(){
       cash.push({ x: cashDate, y: lost[i]});
     }
 
-    cashModel.amount = "342";
-    cashModel.income = true;
-    cashModel.frequency = "4";
 
-    expenseModel.amount = "1000";
-    expenseModel.income = false;
-    expenseModel.frequency = "4";//expense frequency has to match income frequency
+    //crunch numbers for proper amount here:
+    var totalAmount = Math.floor(($('#income').val() * $('#frequency').val())/6);
 
-    return [{ values: cashModel.generateData(), key: "cash", color: "#2ca02c"},
-            { values: expenseModel.generateData(), area: true, key: "spending", color:"lightsalmon"}];
+  cashModel.amount = totalAmount;
+  cashModel.income = true;
+  cashModel.frequency = "6";//frequency needs to be at least 6 in order to avoid NaN dates in timeline
 
-    },
-    chart: function(){
-      var chart = nv.models.lineChart(),
-          data = this.lostChart(),
-          minDate = "20111201",
-          maxDate = "20121201";
+  expenseModel.amount = $('#expenses').val();
+  expenseModel.income = false;
+  expenseModel.frequency = "6";//expense frequency has to match income frequency
+
+  return [{ values: cashModel.generateData(), key: "cash", color: "#2ca02c"},
+         { values: expenseModel.generateData(), area: true, key: "spending", color:"lightsalmon"}];
+
+  },
+  chart: function(){
+    var chart = nv.models.lineChart(),
+    data = this.lostChart();
 
     chart.x(function(d,i){return i});
 
@@ -118,13 +122,13 @@ $(function(){
     nv.utils.windowResize(function() { d3.select("#viz svg").call(chart)});
 
     return chart;
-      },
+  },
 
-      render: function(){
-        nv.addGraph(this.chart());
-      }
-    });
+  render: function(){
+    nv.addGraph(this.chart());
+  }
+});
 
-  window.app = new AppView;
+window.app = new AppView;
 
 });

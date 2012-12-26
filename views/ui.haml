@@ -1,10 +1,17 @@
 %div.ui-box
-  %div.panel#income
+  %div.panel
     %p 
       My
       %em income
-      is $300 a week
-  %div.panel#expenses
+      is $ 
+      %input{"type"=>"text", "id"=>"income", "value"=>"300", "class"=>"trigger"}
+      %select#frequency.trigger
+        %option{"value"=>"4"} Weekly
+        %option{"value"=>"2"} Bi-Weekly
+        %option{"value"=>"1"} Monthly
+  %div.panel
     %p 
-      And I have $400 a month in 
+      And I have $
+      %input{"type"=>"text", "id"=>"expenses", "value"=>"1000", "class"=>"trigger"}
+      a month in 
       %em expenses
