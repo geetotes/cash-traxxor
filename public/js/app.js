@@ -4,14 +4,13 @@ $(function(){
   window.AppView = Backbone.View.extend({
     el: $("#app"),
   events: {
-    "blur .trigger": "redraw",
-  "click .trigger": "redraw"
+    "blur .trigger": "render",
+  "click .trigger": "render"
   }, //all we need is events right now
   initialize: function(){
-    var graph = new GraphView;
-    graph.render();
+    this.render();
   },
-  redraw: function(){
+  render: function(){
     var graph = new GraphView;
     graph.render();
 
@@ -38,13 +37,17 @@ $(function(){
       }
 
       //crunch numbers for proper amount here:
-      var totalAmount = $('#income').val() * $('#frequency').val();
-      var avgAmt = Math.floor(($('#income').val() * $('#frequency').val())/6);
-      $('#savings').text(totalAmount - $('#expenses').val());
+      var avgAmt = Math.floor(this.totalIncome()/6);
 
       return [{ values: this.generateData(true, avgAmt), key: "cash", color: "#2ca02c"},
              { values: this.generateData(false, $('#expenses').val()), area: true, key: "spending", color:"lightsalmon"}];
 
+    },
+    totalIncome: function(){
+      return $('#income').val() * $('#frequency').val();
+    },
+    totalExpenses: function(){
+      return $('#expenses').val();
     },
     generateData: function(income, amount){
       var now = new Date(),
@@ -96,9 +99,15 @@ $(function(){
 
       return chart;
     },
-
+    setText: function(){
+      if((this.totalIncome() - this.totalExpenses()) > 0) 
+        $('#savings').text(this.totalIncome() - this.totalExpenses()).css("color", "black");
+      else
+        $('#savings').text(this.totalIncome() - this.totalExpenses()).css("color", "red");
+    },
     render: function(){
       nv.addGraph(this.chart());
+      this.setText();
     }
   });
 
