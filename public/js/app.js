@@ -22,32 +22,19 @@ $(function(){
 
   window.GraphView = Backbone.View.extend({
     el: $("#viz"),
-
-    lostChart: function(){
-      var lost = [4, 8, 15, 16, 23, 42], //LOST
-      cash = [],
-      spend = [],
-      i;
-
-      for(i = 0; i < lost.length; i++) {
-        spendDate = (new Date).getTime();
-        spend.push({ x: spendDate, y: 30});
-        var cashDate = new Date(2012,12,i).getTime();
-        cash.push({ x: cashDate, y: lost[i]});
-      }
-
-      //crunch numbers for proper amount here:
-      var avgAmt = Math.floor(this.totalIncome()/6);
-
-      return [{ values: this.generateData(true, avgAmt), key: "cash", color: "#2ca02c"},
-             { values: this.generateData(false, $('#expenses').val()), area: true, key: "spending", color:"lightsalmon"}];
-
-    },
+    // helper functions up top
     totalIncome: function(){
       return $('#income').val() * $('#frequency').val();
     },
     totalExpenses: function(){
       return $('#expenses').val();
+    },
+
+    chartValues: function(){
+      var avgAmt = avgAmt = Math.floor(this.totalIncome()/6);
+
+      return [{ values: this.generateData(true, avgAmt), key: "cash", color: "#2ca02c"},
+             { values: this.generateData(false, $('#expenses').val()), area: true, key: "spending", color:"lightsalmon"}];
     },
     generateData: function(income, amount){
       var now = new Date(),
@@ -74,22 +61,18 @@ $(function(){
     },
     chart: function(){
       var chart = nv.models.lineChart(),
-      data = this.lostChart();
+      data = this.chartValues();
 
       chart.x(function(d,i){return i});
-
       chart.xAxis
         .axisLabel('Time')
         .tickFormat(function(d){
           var dx = data[0].values[d] && data[0].values[d].x || 0;
           return d3.time.format('%x')(new Date(dx))
         });
-
-
       chart.yAxis
         .axisLabel('Money')
         .tickFormat(d3.format('.02f'));
-
       d3.select("#viz svg")
         .datum(data)
         .transition().duration(500)
