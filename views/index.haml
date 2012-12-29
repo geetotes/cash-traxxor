@@ -1,10 +1,13 @@
 %div#app
   =partial :ui
   %div.full-width
-    %div.left#viz
+    %div#viz
       %svg
-    %div.right
+    %div
       %p
         You can save: $
         %em#savings 2,345
         this month.
+  %div#spendlist
+
+%script#spend-template{"type"=>"text/template"}

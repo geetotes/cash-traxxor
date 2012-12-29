@@ -1,23 +1,35 @@
 //BACKBONE app here
 //
 $(function(){
-  window.AppView = Backbone.View.extend({
-    el: $("#app"),
-  events: {
-    "blur .trigger": "render",
-  "click .trigger": "render"
-  }, //all we need is events right now
-  initialize: function(){
-    this.render();
-  },
-  render: function(){
-    var graph = new GraphView;
-    graph.render();
 
-  },
-  setExpenses: function(){
-    //????
-  }
+  window.Expense = Backbone.Model.extend({
+    defaults: {
+      "item": "pizza",
+      "amount": "300"
+    } //add a url at some point too
+  });
+
+  window.ExpenseCollection = Backbone.Collection.extend({
+    model: Expense,
+    totalExpenses: function(){
+      //sum together all the spending and return it
+    }
+  });
+
+  window.Expenses = new ExpenseCollection;
+
+
+
+  window.ExpenseView = Backbone.View.extend({
+    template: _.template($('#spend-template').html()),
+    render: function(){
+      $(this.el).html(this.template(this.model.toJSON()));
+      this.setText();
+      return this;
+    },
+    setText: function(){
+      //take some stuff from model fill in blanks
+    }
   });
 
   window.GraphView = Backbone.View.extend({
@@ -92,6 +104,38 @@ $(function(){
       nv.addGraph(this.chart());
       this.setText();
     }
+  });
+
+  window.AppView = Backbone.View.extend({
+  el: $("#app"),
+  collection: Expenses,
+  events: {
+    "blur .trigger": "render",
+    "click .trigger": "render"
+  }, //all we need is events right now
+  initialize: function(){
+    //wire up collections
+    this.collection.bind('add', this.addOne, this);
+    this.collection.bind('reset', this.addAll, this);
+
+    this.render();
+  },
+  addOne: function(expense){
+    var view = new ExpenseView({model: expense});
+    this.$('#spendlist').append(view.render());
+  },
+  allAll: function (){
+    this.$('#spendlist').empty();
+    this.collection.each(this.addOne);
+  },
+  render: function(){
+    var graph = new GraphView;
+    graph.render();
+    //actually, need to go through SpendList colleciton and call spendView render on each
+    var spendList = new SpendView;
+    spendList.render();
+
+  }
   });
 
   window.app = new AppView;
