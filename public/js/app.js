@@ -11,8 +11,12 @@ $(function(){
 
   window.ExpenseCollection = Backbone.Collection.extend({
     model: Expense,
-    totalExpenses: function(){
-      //sum together all the spending and return it
+    sumExpenses: function(){
+      var total = 0;
+      this.each(function(model){
+        total += parseInt(model.get('amount')); //need to be explicit here, or selse the string gets concatenated
+      });
+      return total;
     }
   });
 
@@ -106,8 +110,7 @@ $(function(){
   el: $("#app"),
   collection: Expenses,
   events: {
-    "blur .trigger": "render",
-    "click .trigger": "render",
+    "change .trigger": "render",
     "click #add-expense" : "newExpense"
   }, //all we need is events right now
   initialize: function(){
@@ -121,11 +124,14 @@ $(function(){
     e.preventDefault();
     var expense = new Expense;
     expense.set({item: $('#expense-name').val(), amount: $('#expense-amount').val()});
-    this.addOne(expense);
+    this.collection.add(expense);
   },
   addOne: function(expense){
     var view = new ExpenseView({model: expense});
     this.$('#spendlist').append(view.render().el);
+    this.$('#sum-expenses').html(this.collection.sumExpenses());
+    this.$('#expenses').val(this.collection.sumExpenses());
+    this.$('#expenses').trigger('change'); //need to manuall trigger the change here
   },
   allAll: function (){
     this.$('#spendlist').empty();
