@@ -40,14 +40,14 @@ $(function(){
       return $('#income').val() * $('#frequency').val();
     },
     totalExpenses: function(){
-      return $('#expenses').val();
+      return $('#sum-expenses').val();
     },
 
     chartValues: function(){
       var avgAmt = avgAmt = Math.floor(this.totalIncome()/6);
 
       return [{ values: this.generateData(true, avgAmt), key: "cash", color: "#2ca02c"},
-             { values: this.generateData(false, $('#expenses').val()), area: true, key: "spending", color:"lightsalmon"}];
+             { values: this.generateData(false, $('#sum-expenses').val()), area: true, key: "spending", color:"lightsalmon"}];
     },
     generateData: function(income, amount){
       var now = new Date(),
@@ -132,9 +132,8 @@ $(function(){
     var render = view.render().el;
     this.$('#spendlist').append(render);
     $(render).slideDown("slow");
-    this.$('#sum-expenses').html(this.collection.sumExpenses());
-    this.$('#expenses').val(this.collection.sumExpenses());
-    this.$('#expenses').trigger('change'); //need to manuall trigger the change here
+    this.$('#sum-expenses').val(this.collection.sumExpenses());
+    this.$('#sum-expenses').trigger('change'); //need to manuall trigger the change here
   },
   allAll: function (){
     this.$('#spendlist').empty();

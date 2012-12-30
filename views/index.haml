@@ -9,7 +9,7 @@
         %em#savings 2,345
         this month.
   %div.spend-box-container
-    %div.spend-box-header
+    %div.box-header
       %h3
         expenses
       %label{"for"=>"expense-name"}Name
@@ -21,7 +21,18 @@
       %ul#spendlist
       %div.total-box
         Total: 
-        %span#sum-expenses
+        %input#sum-expenses.trigger{"type"=>"text", "readonly"=>"readonly"}  
+  %div.income-box-container
+    %div.box-header
+      %h3
+        income
+      $ 
+      %input{"type"=>"text", "id"=>"income", "value"=>"300", "class"=>"trigger"}
+      %select#frequency.trigger
+        %option{"value"=>"4"} Weekly
+        %option{"value"=>"2"} Bi-Weekly
+        %option{"value"=>"1"} Monthly
+
 
 %script#spend-template{"type"=>"text/template"}
   %span.spend-name <%= item %>

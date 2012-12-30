@@ -42,15 +42,17 @@ a{
   float:right;
 }
 
-.spend-box-container{
-  width:50%;
+.spend-box-container, .income-box-container{
+  width:45%;
+  float:left;
+  margin-left:10px;
 }
 
 .spend-box-container input{
   margin-right:40px;
 }
 
-.spend-box-header{
+.box-header{
   background: lightgrey;
   @include border-radius(4px, 4px);
   margin-bottom:1em;
@@ -58,7 +60,7 @@ a{
 
 }
 
-.spend-box-header h3{
+.box-header h3{
   margin:0.8em auto;
   text-align:center;
   border-bottom:1px solid darkgrey;
