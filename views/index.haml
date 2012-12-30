@@ -12,8 +12,11 @@
     %input{"type"=>"text", "value"=>"Expense", "id"=>"expense-name"}
     %input{"type"=>"text", "value"=>"Amount", "id"=>"expense-amount"}
     %a{"href"=>"#", "class"=>"button", "id"=>"add-expense"}Add
-  %div#sum-expenses
-  %div#spendlist
+  %div.spend-box
+    %ul#spendlist
+    %div.total-box
+      Total: 
+      %span#sum-expenses
 
 %script#spend-template{"type"=>"text/template"}
   %span.spend-name <%= item %>

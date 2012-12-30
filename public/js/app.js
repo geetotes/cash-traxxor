@@ -25,6 +25,7 @@ $(function(){
 
 
   window.ExpenseView = Backbone.View.extend({
+    tagName: "li", //let's make this an li
     template: _.template($('#spend-template').html()),
     render: function(){
       $(this.el).html(this.template(this.model.toJSON()));
@@ -128,7 +129,9 @@ $(function(){
   },
   addOne: function(expense){
     var view = new ExpenseView({model: expense});
-    this.$('#spendlist').append(view.render().el);
+    var render = view.render().el;
+    this.$('#spendlist').append(render);
+    $(render).slideDown("slow");
     this.$('#sum-expenses').html(this.collection.sumExpenses());
     this.$('#expenses').val(this.collection.sumExpenses());
     this.$('#expenses').trigger('change'); //need to manuall trigger the change here

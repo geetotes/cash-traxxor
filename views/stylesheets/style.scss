@@ -1,5 +1,11 @@
+@import "compass";
+@import "compass/reset";
 @import "ostrich-sans.scss";
-@import "lcars.scss";
+$spend-box-padding: 0.5em 0;
+
+body{
+  font-family: "Helvetica Neue", Helvetica, sans-serif;
+}
 
 #viz{
   clear:both;
@@ -9,4 +15,25 @@
   margin:0 auto;
 }
 
+.spend-box{
+  width: 50%;
+  padding: 0 0.5em;
+  @include border-radius(4px, 4px);
+  @include background-image(linear-gradient(lightsalmon, darksalmon, salmon));
+}
+
+.total-box{
+  padding:$spend-box-padding;
+  text-decoration: underline;
+}
+
+#spendlist li{
+  display:none;
+  padding:$spend-box-padding;
+  border-bottom: 1px solid ghostwhite;
+}
+
+#sum-expenses, .spend-amount{
+  float:right;
+}
 
