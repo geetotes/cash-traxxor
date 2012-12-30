@@ -24,11 +24,7 @@ $(function(){
     template: _.template($('#spend-template').html()),
     render: function(){
       $(this.el).html(this.template(this.model.toJSON()));
-      this.setText();
       return this;
-    },
-    setText: function(){
-      //take some stuff from model fill in blanks
     }
   });
 
@@ -111,7 +107,8 @@ $(function(){
   collection: Expenses,
   events: {
     "blur .trigger": "render",
-    "click .trigger": "render"
+    "click .trigger": "render",
+    "click #add-expense" : "newExpense"
   }, //all we need is events right now
   initialize: function(){
     //wire up collections
@@ -120,9 +117,15 @@ $(function(){
 
     this.render();
   },
+  newExpense: function(e){
+    e.preventDefault();
+    var expense = new Expense;
+    expense.set({item: $('#expense-name').val(), amount: $('#expense-amount').val()});
+    this.addOne(expense);
+  },
   addOne: function(expense){
     var view = new ExpenseView({model: expense});
-    this.$('#spendlist').append(view.render());
+    this.$('#spendlist').append(view.render().el);
   },
   allAll: function (){
     this.$('#spendlist').empty();
@@ -132,8 +135,8 @@ $(function(){
     var graph = new GraphView;
     graph.render();
     //actually, need to go through SpendList colleciton and call spendView render on each
-    var spendList = new SpendView;
-    spendList.render();
+    //var spendList = new ExpenseView;
+    //spendList.render();
 
   }
   });
