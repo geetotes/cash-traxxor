@@ -8,15 +8,20 @@
         You can save: $
         %em#savings 2,345
         this month.
-  %div
-    %input{"type"=>"text", "value"=>"Expense", "id"=>"expense-name"}
-    %input{"type"=>"text", "value"=>"Amount", "id"=>"expense-amount"}
-    %a{"href"=>"#", "class"=>"button", "id"=>"add-expense"}Add
-  %div.spend-box
-    %ul#spendlist
-    %div.total-box
-      Total: 
-      %span#sum-expenses
+  %div.spend-box-container
+    %div.spend-box-header
+      %h3
+        expenses
+      %label{"for"=>"expense-name"}Name
+      %input{"type"=>"text", "value"=>"Expense", "id"=>"expense-name"}
+        %label{"for"=>"expense-amount"}Amount
+      %input{"type"=>"text", "value"=>"Amount", "id"=>"expense-amount"}
+      %a{"href"=>"#", "class"=>"button", "id"=>"add-expense"}Add
+    %div.spend-box
+      %ul#spendlist
+      %div.total-box
+        Total: 
+        %span#sum-expenses
 
 %script#spend-template{"type"=>"text/template"}
   %span.spend-name <%= item %>
