@@ -128,6 +128,9 @@ $(function(){
       var expense = new Expense;
       expense.set({item: $('#expense-name').val(), amount: $('#expense-amount').val()});
       this.collection.add(expense);
+      //clear out for new stuff
+      $('#expense-name').val('');
+      $('#expense-amount').val('');
     } else {
       $('#expense-amount').addClass('error');
     }
