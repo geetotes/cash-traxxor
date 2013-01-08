@@ -1,37 +1,42 @@
-%div#app
-  =partial :ui
-  %div.full-width
+%div#app.two-col
+  %div#header
     %div#viz
       %svg
-    %div
-      %p
-        You can save: $
-        %em#savings 2,345
-        this month.
-  %div.spend-box-container
-    %div.box-header
-      %h3
-        expenses
-      %label{"for"=>"expense-name"}Name
-      %input{"type"=>"text", "value"=>"Expense", "id"=>"expense-name"}
-        %label{"for"=>"expense-amount"}Amount
-      %input{"type"=>"text", "value"=>"Amount", "id"=>"expense-amount"}
-      %a{"href"=>"#", "class"=>"button", "id"=>"add-expense"}Add
-    %div.spend-box
+  %div#sidebar
+    %div.box-container
+      %div.box-header
+        %h3
+          expenses
+        %label{"for"=>"expense-name"}Name
+        %input{"type"=>"text", "value"=>"Expense", "id"=>"expense-name"}
+          %label{"for"=>"expense-amount"}Amount
+        %input{"type"=>"text", "value"=>"Amount", "id"=>"expense-amount"}
+        %a{"href"=>"#", "class"=>"button", "id"=>"add-expense"}Add
+    %div.box-container#spend-box
       %ul#spendlist
       %div.total-box
         Total: 
         %input#sum-expenses.trigger{"type"=>"text", "readonly"=>"readonly"}  
-  %div.income-box-container
-    %div.box-header
-      %h3
-        income
-      $ 
-      %input{"type"=>"text", "id"=>"income", "value"=>"300", "class"=>"trigger"}
-      %select#frequency.trigger
-        %option{"value"=>"4"} Weekly
-        %option{"value"=>"2"} Bi-Weekly
-        %option{"value"=>"1"} Monthly
+  %div#content
+    %div.box-container
+      %div.box-header
+        %h3
+          income
+        $ 
+        %input{"type"=>"text", "id"=>"income", "value"=>"300", "class"=>"trigger"}
+        %select#frequency.trigger
+          %option{"value"=>"4"} Weekly
+          %option{"value"=>"2"} Bi-Weekly
+          %option{"value"=>"1"} Monthly
+    %div.box-container
+      %div.box-header
+        %h3
+          savings
+        %p
+          You can save: $
+          %em#savings 2,345
+          this month.
+
 
 
 %script#spend-template{"type"=>"text/template"}

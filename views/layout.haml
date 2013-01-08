@@ -14,6 +14,11 @@
 
   / Goodies come first, then stuff compiled with sass
   / TODO: Minify these on deploy somehow
+  %link{'rel' => 'stylesheet', 'media' => 'screen, projection', 'type'=>'text/css', 'href'=>'stylesheets/screen.css'}/
+  %link{'rel' => 'stylesheet', 'media'=>'print', 'type'=>'text/css', 'href'=>'stylesheets/print.css'}
+  <!--[if lt IE8]>
+  %link{'rel' => 'stylesheet', 'media' => 'screen, projection', 'href' => 'stylesheets/ie.css'}
+  <![endif]-->
   %link{'rel' => 'stylesheet', 'href' => 'css/silk-icons.css'}/
   %link{'rel' => 'stylesheet', 'href' => 'css/ostrich-sans.css'}/
   %link{'rel' => 'stylesheet', 'href' => 'stylesheets/nvd3.css'}/

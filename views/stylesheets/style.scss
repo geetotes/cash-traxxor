@@ -2,7 +2,10 @@
 @import "compass/reset";
 @import "compass/typography/links/link-colors";
 @import "ostrich-sans.scss";
+@import "blueprint";
 $spend-box-padding: 0.5em 0;
+$blueprint_grid_columns: 8;
+$blueprint_grid_width: 40px;
 
 body{
   font-family: "Helvetica Neue", Helvetica, sans-serif;
@@ -12,19 +15,21 @@ a{
   text-decoration:none;
 }
 
-
+.two-col{
+  @include container;
+  #header, #footer {
+    @include column(8);
+  }
+  #sidebar, #content {
+    @include column(4);
+  }
+}
 #viz{
   clear:both;
 }
 
 .ui-box{
   margin:0 auto;
-}
-
-.spend-box{
-  padding: 0 0.5em;
-  @include border-radius(4px, 4px);
-  @include background-image(linear-gradient(lightsalmon, darksalmon, salmon));
 }
 
 .total-box{
@@ -42,13 +47,18 @@ a{
   float:right;
 }
 
-.spend-box-container, .income-box-container{
+.box-container {
   width:45%;
   float:left;
   margin-left:10px;
 }
+#spend-box{
+  padding: 0 0.5em;
+  @include border-radius(4px, 4px);
+  @include background-image(linear-gradient(lightsalmon, darksalmon, salmon));
+}
 
-.spend-box-container input{
+.box-container input{
   margin-right:40px;
 }
 
