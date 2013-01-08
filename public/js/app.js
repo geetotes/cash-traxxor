@@ -123,11 +123,18 @@ $(function(){
   },
   newExpense: function(e){
     e.preventDefault();
-    var expense = new Expense;
-    expense.set({item: $('#expense-name').val(), amount: $('#expense-amount').val()});
-    this.collection.add(expense);
+    //check to see if the amount is legit
+    if($.isNumeric($('#expense-amount').val())) {
+      var expense = new Expense;
+      expense.set({item: $('#expense-name').val(), amount: $('#expense-amount').val()});
+      this.collection.add(expense);
+    } else {
+      $('#expense-amount').addClass('error');
+    }
+
   },
   addOne: function(expense){
+    $('#expense-amount').removeClass('error');
     var view = new ExpenseView({model: expense});
     var render = view.render().el;
     this.$('#spendlist').append(render);

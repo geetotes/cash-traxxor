@@ -2,10 +2,12 @@
 @import "compass/reset";
 @import "compass/typography/links/link-colors";
 @import "ostrich-sans.scss";
-@import "blueprint";
+
 $spend-box-padding: 0.5em 0;
-$blueprint_grid_columns: 8;
+$blueprint_grid_columns: 12;
 $blueprint_grid_width: 40px;
+
+@import "blueprint";
 
 body{
   font-family: "Helvetica Neue", Helvetica, sans-serif;
@@ -18,14 +20,15 @@ a{
 .two-col{
   @include container;
   #header, #footer {
-    @include column(8);
+    @include column(12);
   }
   #sidebar, #content {
-    @include column(4);
+    @include column(5);
   }
 }
-#viz{
-  clear:both;
+
+input.error{
+  @include box-shadow(red 0px 0px 10px);
 }
 
 .ui-box{
