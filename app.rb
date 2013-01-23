@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'sinatra'
-require 'mongo'
+#require 'mongo'
 require 'json'
 require 'haml'
 require 'sass'
