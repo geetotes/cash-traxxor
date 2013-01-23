@@ -46,23 +46,11 @@ input.error{
   border-bottom: 1px solid ghostwhite;
 }
 
-#sum-expenses, .spend-amount{
-  float:right;
-}
 
-.box-container {
-  width:45%;
-  float:left;
-  margin-left:10px;
-}
 #spend-box{
   padding: 0 0.5em;
   @include border-radius(4px, 4px);
   @include background-image(linear-gradient(lightsalmon, darksalmon, salmon));
-}
-
-.box-container input{
-  margin-right:40px;
 }
 
 .box-header{
@@ -87,5 +75,10 @@ input.error{
   background: #090;
   text-transform:uppercase;
   color:ghostwhite;
+  display:inline-block;
+  margin:10px;
 }
 
+#sum-expenses {
+  text-align: right;
+}

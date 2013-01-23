@@ -119,6 +119,9 @@ $(function(){
     this.collection.bind('add', this.addOne, this);
     this.collection.bind('reset', this.addAll, this);
 
+    //clear out total expenses that's populated by browser remembering things
+    $('#sum-expenses').val('');
+
     this.render();
   },
   newExpense: function(e){
