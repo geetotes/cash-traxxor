@@ -112,8 +112,10 @@ $(function(){
   collection: Expenses,
   events: {
     "change .trigger": "render",
-    "click #add-expense" : "newExpense"
-  }, //all we need is events right now
+    "click #add-expense" : "newExpense",
+    "focus input": "clearInput"
+    //TODO: add listener for enter key, or put input boxes in a proper form
+  }, 
   initialize: function(){
     //wire up collections
     this.collection.bind('add', this.addOne, this);
@@ -123,6 +125,12 @@ $(function(){
     $('#sum-expenses').val('');
 
     this.render();
+  },
+  clearInput: function(e){
+    //this is just a UI preference of mine, I like to have things clear out when I click on them. Eventually, I'll put something in here to check if the value of the text has changed
+    var targetEl = $(e.currentTarget);
+    if(targetEl.val() == e.currentTarget.defaultValue)
+      targetEl.val('');
   },
   newExpense: function(e){
     e.preventDefault();
@@ -153,8 +161,14 @@ $(function(){
     this.collection.each(this.addOne);
   },
   render: function(){
-    var graph = new GraphView;
-    graph.render();
+    //check to make sure income is legit
+    if($.isNumeric($('#income').val())) {
+      $('#income').removeClass('error');
+      var graph = new GraphView;
+      graph.render();
+    }else{
+      $('#income').addClass('error');
+    }
     //actually, need to go through SpendList colleciton and call spendView render on each
     //var spendList = new ExpenseView;
     //spendList.render();

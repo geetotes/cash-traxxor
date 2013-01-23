@@ -8,8 +8,10 @@
         %h3
           expenses
         %label{"for"=>"expense-name"}Name
+        %br
         %input{"type"=>"text", "value"=>"Expense", "id"=>"expense-name"}
-          %label{"for"=>"expense-amount"}Amount
+        %label{"for"=>"expense-amount"}Amount
+        %br
         %input{"type"=>"text", "value"=>"Amount", "id"=>"expense-amount"}
         %a{"href"=>"#", "class"=>"button", "id"=>"add-expense"}Add
     %div.box-container#spend-box
